@@ -1,12 +1,26 @@
 package com.ecommerce.core.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "productos")
 public class Producto {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nombre;
 	private String descripcion;
 	private String imagen;
 	private int precio;
 	private int cantidad;
+	
+	//Relacion usuario muchos a uno
+	@ManyToOne
+	private Usuario usuario;
+	
+	// Aquí no es necesario saber el a que detalle 
+	// de la orden corresponde el producto.
+	
 	public Long getId() {
 		return id;
 	}
@@ -43,13 +57,23 @@ public class Producto {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
-	public Producto(Long id, String nombre, String descripcion, String imagen, int precio, int cantidad) {
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	public Producto(Long id, String nombre, String descripcion, String imagen, int precio, int cantidad, Usuario usuario) {
 		setId(id);
 		setNombre(nombre);
 		setDescripcion(descripcion);
 		setImagen(imagen);
 		setPrecio(precio);
 		setCantidad(cantidad);
+		
+		setUsuario(usuario);
 	}
 	public Producto() {
 	}

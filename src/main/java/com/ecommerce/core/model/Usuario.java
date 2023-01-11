@@ -1,6 +1,14 @@
 package com.ecommerce.core.model;
 
+import java.util.List;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "usuarios")
 public class Usuario {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nombre;
 	private String usuario;
@@ -9,6 +17,16 @@ public class Usuario {
 	private String telefono;
 	private String tipo;
 	private String clave;
+	
+	//Relacion con producto uno a muchos
+	@OneToMany(mappedBy = "usuario")
+	private List<Producto> productos;
+	
+	//Relacion con orden uno a muchos
+	@OneToMany(mappedBy = "usuario")
+	private List<Orden> ordenes;
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -57,8 +75,22 @@ public class Usuario {
 	public void setClave(String clave) {
 		this.clave = clave;
 	}
+	
+	public List<Producto> getProductos() {
+		return productos;
+	}
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
+	
+	public List<Orden> getOrdenes() {
+		return ordenes;
+	}
+	public void setOrdenes(List<Orden> ordenes) {
+		this.ordenes = ordenes;
+	}
 	public Usuario(Long id, String nombre, String usuario, String email, String direccion, String telefono, String tipo,
-			String clave) {
+			String clave, List<Producto> productos, List<Orden> ordenes) {
 		setId(id);
 		setNombre(nombre);
 		setUsuario(usuario);
@@ -67,6 +99,8 @@ public class Usuario {
 		setTelefono(telefono);
 		setTipo(tipo);
 		setClave(clave);
+		setProductos(productos);
+		setOrdenes(ordenes);
 	}
 	public Usuario() {
 	}
