@@ -23,7 +23,7 @@ public class ProductoController {
 	
 	@GetMapping(path = {""})
 	public ModelAndView listarProductos() {
-		return new ModelAndView("productos/show");
+		return new ModelAndView("productos/show").addObject("productos", ps.listarProductos());
 	}
 	@GetMapping(path = {"/crear"})
 	public String crearProducto() {
